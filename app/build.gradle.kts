@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.serialization")
+    id("org.jetbrains.kotlin.plugin.compose")
 }
 
 android {
@@ -46,10 +47,6 @@ android {
     buildFeatures {
         compose = true
     }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.14"
-    }
 }
 
 dependencies {
@@ -81,9 +78,9 @@ dependencies {
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
 
-    // Markdown (0.28.0 adds table support)
-    implementation("com.mikepenz:multiplatform-markdown-renderer:0.28.0")
-    implementation("com.mikepenz:multiplatform-markdown-renderer-m3:0.28.0")
+    // Markdown (0.35.0 full GFM table, code highlight, image support)
+    implementation("com.mikepenz:multiplatform-markdown-renderer:0.35.0")
+    implementation("com.mikepenz:multiplatform-markdown-renderer-m3:0.35.0")
 
     // Archive extraction
     implementation("org.apache.commons:commons-compress:1.26.2")
