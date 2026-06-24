@@ -94,13 +94,14 @@ fun ChatScreen(
                     items(messages, key = { it.id }) { msg ->
                         MessageBubble(message = msg)
                     }
+                    item(key = "bottom") {}
                 }
             }
         }
 
         LaunchedEffect(messages.size, lastBlock) {
             if (isAtBottom && messages.isNotEmpty()) {
-                listState.animateScrollToItem(messages.size - 1)
+                listState.animateScrollToItem(messages.size)
             }
         }
     }
