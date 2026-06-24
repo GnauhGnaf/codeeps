@@ -27,11 +27,17 @@ fun ChatScreen(
     val isLoading by viewModel.isLoading.collectAsState()
     val listState = rememberLazyListState()
 
-    // Only auto-scroll when user is at the bottom
-    val isAtBottom by remember {
-        derivedStateOf {
+    // Track whether user was at the bottom — updated continuously from layout.
+    // Using mutableState (not derivedStateOf) because we read it in a
+    // snapshotFlow collect that fires BEFORE layout updates for new content.
+    var wasAtBottom by remember { mutableStateOf(true) }
+
+    LaunchedEffect(listState) {
+        snapshotFlow {
             val lastVisible = listState.layoutInfo.visibleItemsInfo.lastOrNull()
             lastVisible == null || lastVisible.index >= listState.layoutInfo.totalItemsCount - 1
+        }.collect { atBottom ->
+            wasAtBottom = atBottom
         }
     }
 
@@ -53,7 +59,10 @@ fun ChatScreen(
         },
         bottomBar = {
             ChatInputBar(
-                onSend = { viewModel.sendMessage(it) },
+                onSend = {
+                    wasAtBottom = true
+                    viewModel.sendMessage(it)
+                },
                 onStop = { viewModel.stop() },
                 isLoading = isLoading
             )
@@ -103,7 +112,7 @@ fun ChatScreen(
                     msg.id to msg.blocks.size to msg.blocks.lastOrNull()
                 }
             }.collect {
-                if (isAtBottom && messages.isNotEmpty()) {
+                if (wasAtBottom && messages.isNotEmpty()) {
                     listState.scrollToItem(messages.size)
                 }
             }
