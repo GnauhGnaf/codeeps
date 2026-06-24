@@ -13,7 +13,7 @@ data class ChatRequest(
     val toolChoice: String? = "auto",
     val stream: Boolean = true,
     @SerialName("max_tokens")
-    val maxTokens: Int = 8192
+    val maxTokens: Int = 32768
 )
 
 @Serializable

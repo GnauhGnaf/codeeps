@@ -192,9 +192,6 @@ class ChatViewModel(application: Application) : AndroidViewModel(application) {
 
     private fun formatToolResult(result: ToolResult): String {
         val prefix = if (result.success) "✓" else "✗"
-        val summary = if (result.output.length > 500) {
-            result.output.take(500) + "\n... (已截断)"
-        } else result.output
-        return "$prefix ${result.name}: $summary"
+        return "$prefix ${result.name}:\n${result.output}"
     }
 }

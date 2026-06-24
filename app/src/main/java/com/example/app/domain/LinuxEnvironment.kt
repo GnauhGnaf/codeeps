@@ -256,10 +256,10 @@ class LinuxEnvironment(context: Context) {
 
         if (!exited) {
             process.destroyForcibly()
-            return ProcessResult(false, output.take(20000), -1)
+            return ProcessResult(false, output, -1)
         }
         val exitCode = process.exitValue()
-        return ProcessResult(exitCode == 0, output.take(20000), exitCode)
+        return ProcessResult(exitCode == 0, output, exitCode)
     }
 
     data class ProcessResult(

@@ -63,7 +63,7 @@ fun ToolCallCard(toolCall: UIToolCall, modifier: Modifier = Modifier) {
 
             AnimatedVisibility(visible = expanded && toolCall.result.isNotBlank()) {
                 Text(
-                    text = toolCall.result.take(1000),
+                    text = toolCall.result,
                     style = MaterialTheme.typography.bodySmall.copy(fontFamily = FontFamily.Monospace),
                     modifier = Modifier.padding(top = 4.dp),
                     color = MaterialTheme.colorScheme.onSurfaceVariant
