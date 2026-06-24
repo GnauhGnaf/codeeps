@@ -40,8 +40,8 @@ You are working inside an Alpine Linux (proot) environment on Android. The works
 
 Available runtimes:
 - **Shell scripts**: Write .sh files and run with `run_command`. Full sh scripting.
-- **Python 3**: Pre-installed. Write .py files and run with `run_command python3 script.py`. Use pip freely — mirror is Tsinghua (https://pypi.tuna.tsinghua.edu.cn/simple).
-- **pip install**: Available! Use `run_command pip install <package>` to install any Python package.
+- **Python 3**: Pre-installed. Write .py files and run with `run_command python3 script.py`.
+- **pip install (CRITICAL)**: Just run `run_command pip install <package>` directly. The system is pre-configured — NO virtual environments, NO --break-system-packages flag needed. Mirror is Tsinghua (https://pypi.tuna.tsinghua.edu.cn/simple). You are NOT in a restricted environment.
 - **C/C++**: Install build tools if needed with `apk add build-base`.
 - **Any Alpine package**: `apk add <pkg>` via `run_command`.
 

@@ -74,9 +74,8 @@ private fun UserBubble(message: UIMessage, modifier: Modifier) {
 @Composable
 private fun AssistantBlock(message: UIMessage, modifier: Modifier) {
     val hasTools = message.toolCallHistory.isNotEmpty()
-    val hasReasoning = message.reasoning.isNotBlank()
     val hasContent = message.content.isNotBlank()
-    val isThinking = message.isThinking && message.reasoning.isEmpty()
+    val isThinking = message.isThinking && !hasContent
 
     Column(
         modifier = modifier
@@ -86,41 +85,9 @@ private fun AssistantBlock(message: UIMessage, modifier: Modifier) {
             .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f))
             .padding(10.dp)
     ) {
-        // ── Thinking (no reasoning text yet) ──
+        // ── Thinking (no content yet, model reasoning) ──
         if (isThinking) {
             PulsingThinking()
-        }
-
-        // ── Reasoning — inline dimmed text, flows into main content ──
-        if (hasReasoning) {
-            if (hasContent) {
-                // reasoning + content together, reasoning as muted prefix
-                Text(
-                    text = message.reasoning,
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        fontFamily = FontFamily.Monospace,
-                        fontSize = 11.sp
-                    ),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.55f),
-                    modifier = Modifier.padding(bottom = 6.dp)
-                )
-                HorizontalDivider(
-                    color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.25f),
-                    thickness = 0.5.dp
-                )
-                Spacer(Modifier.height(6.dp))
-            } else {
-                // No content yet — reasoning IS the current output
-                Text(
-                    text = message.reasoning,
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        fontFamily = FontFamily.Monospace,
-                        fontSize = 11.sp
-                    ),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.55f),
-                    modifier = Modifier.padding(bottom = 6.dp)
-                )
-            }
         }
 
         // ── Tool calls ──
@@ -129,7 +96,7 @@ private fun AssistantBlock(message: UIMessage, modifier: Modifier) {
         }
 
         // ── Divider (between tools and text) ──
-        if (hasTools && hasContent && !hasReasoning) {
+        if (hasTools && hasContent) {
             Spacer(Modifier.height(6.dp))
             HorizontalDivider(
                 color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f),
