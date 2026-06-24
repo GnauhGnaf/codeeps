@@ -311,22 +311,13 @@ private fun ToolCallRow(toolCall: UIToolCall) {
                         )
                 )
                 Spacer(Modifier.width(8.dp))
-                // Result text — monospace, scrollable if wide, max height for long output
-                val scrollState = rememberScrollState()
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .heightIn(max = 160.dp)
-                        .verticalScroll(scrollState)
-                ) {
-                    Text(
-                        text = toolCall.result,
-                        style = MaterialTheme.typography.bodySmall.copy(fontFamily = FontFamily.Monospace),
-                        fontSize = 11.sp,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.horizontalScroll(rememberScrollState())
-                    )
-                }
+                // Result text — monospace, always fully visible
+                Text(
+                    text = toolCall.result,
+                    style = MaterialTheme.typography.bodySmall.copy(fontFamily = FontFamily.Monospace),
+                    fontSize = 11.sp,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
             }
         }
     }

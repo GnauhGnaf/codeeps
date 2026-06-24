@@ -1,6 +1,7 @@
 package com.example.app.ui.chat
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.app.App
@@ -86,7 +87,9 @@ class ChatViewModel(application: Application) : AndroidViewModel(application) {
 
                         event.toolResult != null -> {
                             val result = event.toolResult
+                            Log.d("ChatVM", "ToolResult: id=${result.toolCallId} name=${result.name} success=${result.success} outputLen=${result.output.length}")
                             pendingToolCalls.values.find { it.id == result.toolCallId || it.name == result.name }?.let { existing ->
+                                Log.d("ChatVM", "  Matched existing: id=${existing.id} name=${existing.name}")
                                 val updated = existing.copy(
                                     status = if (result.success) "done" else "error",
                                     result = result.output
@@ -96,6 +99,7 @@ class ChatViewModel(application: Application) : AndroidViewModel(application) {
                                     pendingToolCalls[entry.key] = updated
                                 }
                             } ?: run {
+                                Log.d("ChatVM", "  Fallback: no match found, adding new entry")
                                 // Fallback: add result directly
                                 val idx = pendingToolCalls.size
                                 pendingToolCalls[idx] = UIToolCall(

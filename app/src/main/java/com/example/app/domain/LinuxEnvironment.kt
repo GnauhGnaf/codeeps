@@ -149,9 +149,9 @@ class LinuxEnvironment(context: Context) {
             // --- Step 4: Smoke test proot (echo is builtin, no fork needed) ---
             log.appendLine("[4/5] 测试 proot...")
             val rEcho = execRaw("echo proot_ok", 5)
-            Log.d("LinuxEnv", "echo test: exit=${rEcho.exitCode} out=${rEcho.output.take(200)}")
+            Log.d("LinuxEnv", "echo test: exit=${rEcho.exitCode} out=${rEcho.output}")
             if (!rEcho.success) {
-                return@withContext Result.failure(RuntimeException("proot 基础功能异常: ${rEcho.output.take(200)}"))
+                return@withContext Result.failure(RuntimeException("proot 基础功能异常: ${rEcho.output}"))
             }
             log.appendLine("  ✓ proot 基础功能正常")
 
@@ -159,7 +159,7 @@ class LinuxEnvironment(context: Context) {
             var forkOk = false
             for (attempt in 1..3) {
                 val rLs = execRaw("ls /usr/bin/python* 2>&1", 8)
-                Log.d("LinuxEnv", "ls test attempt $attempt: exit=${rLs.exitCode} out=${rLs.output.take(200)}")
+                Log.d("LinuxEnv", "ls test attempt $attempt: exit=${rLs.exitCode} out=${rLs.output}")
                 if (rLs.success) { forkOk = true; break }
             }
             if (!forkOk) {
@@ -172,7 +172,7 @@ class LinuxEnvironment(context: Context) {
 
             for (attempt in 1..3) {
                 val rPy = execRaw("python3 --version 2>&1", 10)
-                Log.d("LinuxEnv", "python3 test $attempt: exit=${rPy.exitCode} out=${rPy.output.take(300)}")
+                Log.d("LinuxEnv", "python3 test $attempt: exit=${rPy.exitCode} out=${rPy.output}")
                 if (rPy.success) {
                     log.appendLine("  ✓ ${rPy.output.trim()}")
                     setupMarker.writeText(abi)
