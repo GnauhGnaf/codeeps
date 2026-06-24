@@ -16,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.app.ui.chat.components.ChatInputBar
 import com.example.app.ui.chat.components.MessageBubble
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -27,7 +26,16 @@ fun ChatScreen(
     val messages by viewModel.messages.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
     val listState = rememberLazyListState()
-    val scope = rememberCoroutineScope()
+
+    // Only auto-scroll when user is at the bottom
+    val isAtBottom by remember {
+        derivedStateOf {
+            val lastVisible = listState.layoutInfo.visibleItemsInfo.lastOrNull()
+            lastVisible == null || lastVisible.index >= listState.layoutInfo.totalItemsCount - 1
+        }
+    }
+
+    val lastBlock = messages.lastOrNull()?.blocks?.lastOrNull()
 
     Scaffold(
         topBar = {
@@ -47,12 +55,7 @@ fun ChatScreen(
         },
         bottomBar = {
             ChatInputBar(
-                onSend = { text ->
-                    viewModel.sendMessage(text)
-                    scope.launch {
-                        listState.animateScrollToItem(messages.size)
-                    }
-                },
+                onSend = { viewModel.sendMessage(it) },
                 onStop = { viewModel.stop() },
                 isLoading = isLoading
             )
@@ -95,8 +98,8 @@ fun ChatScreen(
             }
         }
 
-        LaunchedEffect(messages.size) {
-            if (messages.isNotEmpty()) {
+        LaunchedEffect(messages.size, lastBlock) {
+            if (isAtBottom && messages.isNotEmpty()) {
                 listState.animateScrollToItem(messages.size - 1)
             }
         }

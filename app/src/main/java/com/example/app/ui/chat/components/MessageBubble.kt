@@ -178,7 +178,7 @@ private fun PulsingThinking() {
 private fun ThinkingBlock(reasoning: String, isThinking: Boolean) {
     // Expanded while thinking, collapsed when done (user can toggle)
     var collapsed by remember(isThinking) {
-        mutableStateOf(!isThinking)
+        mutableStateOf(true)
     }
 
     Column {
