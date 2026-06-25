@@ -71,6 +71,38 @@ Android App
 
 仅需 `INTERNET` 权限。无需 Root。
 
+### 开源声明
+
+本项目基于以下开源项目构建：
+
+| 项目 | 用途 | 许可证 |
+|------|------|--------|
+| [Claude Code](https://github.com/anthropics/claude-code) | AI 编码助手架构参考、Skill 技能系统、工具调用模式 | MIT |
+| [proot](https://github.com/proot-me/proot) | Linux 用户态沙箱（ptrace 虚拟化） | GPL-2.0 |
+| [Alpine Linux](https://alpinelinux.org/) | minirootfs 根文件系统 | MIT |
+| [LibreOffice](https://www.libreoffice.org/) | Office 文档转换引擎 | MPL-2.0 |
+| [multiplatform-markdown-renderer](https://github.com/mikepenz/multiplatform-markdown-renderer) | Compose Markdown 渲染 | Apache-2.0 |
+
+### 个人实现
+
+本项目在开源代码基础上，独立完成了以下工作：
+
+- **Android 平台适配** — 将 CLI 工具调用架构改造为 Android MVVM + Compose UI 模式，实现完整的移动端 AI 交互体验
+- **proot Linux 环境集成** — 在 Android 上通过 JNI 集成 proot，构建伪 /proc 文件系统绕过 SELinux 限制，实现无需 Root 的完整 Linux 沙箱
+- **Alpine rootfs 定制** — 预装 Python 3.14、LibreOffice 25.8、中文字体，配置清华 PyPI 镜像，完成 7 步自动化初始化流程
+- **Office 文档处理链路** — LibreOffice headless → PDF 转换 → Android PdfRenderer 渲染，解决 proot 下 fork 系统调用不可用的问题（改用 exec 直接启动 soffice.bin）
+- **对话持久化系统** — 基于 JSON 的多对话管理，每轮对话独立工作区隔离，支持历史切换与恢复
+- **文件查看器矩阵** — 文本（语法高亮）、图片（Coil）、PDF（PdfRenderer 分页）、Office（LibreOffice 转换）、视频（VideoView）一站式查看
+- **UI/UX 设计** — 可折叠思维链与工具调用、流式消息渲染、自动滚动、Material 3 主题适配
+
+### 免责声明
+
+- 本项目为个人学习与实验作品，**不保证任何形式的稳定性或可靠性**，使用风险由用户自行承担
+- 本应用通过 DeepSeek API 提供服务，使用前需自行获取 API Key，API 费用与限额以 DeepSeek 官方为准
+- 本应用在设备本地执行 AI 生成的 Shell 命令，虽有限制措施但无法完全避免风险，请谨慎审查和执行
+- 本项目与 DeepSeek、Anthropic 无任何关联或 endorsement 关系
+- 所有商标和品牌名称均为其各自所有者的财产
+
 ---
 
 ## English
@@ -137,6 +169,38 @@ On first launch, a 7-step initialization runs: extract rootfs → create symlink
 ### Permissions
 
 Only `INTERNET` permission required. No root access needed.
+
+### Open Source Attribution
+
+This project builds upon the following open-source projects:
+
+| Project | Usage | License |
+|---------|-------|---------|
+| [Claude Code](https://github.com/anthropics/claude-code) | AI coding agent architecture, skill system, tool-calling patterns | MIT |
+| [proot](https://github.com/proot-me/proot) | Userspace Linux sandbox (ptrace virtualization) | GPL-2.0 |
+| [Alpine Linux](https://alpinelinux.org/) | minirootfs base filesystem | MIT |
+| [LibreOffice](https://www.libreoffice.org/) | Office document conversion engine | MPL-2.0 |
+| [multiplatform-markdown-renderer](https://github.com/mikepenz/multiplatform-markdown-renderer) | Compose Markdown rendering | Apache-2.0 |
+
+### Personal Implementation
+
+Built independently on top of the open-source foundation:
+
+- **Android Platform Adaptation** — Transformed CLI tool-calling architecture into Android MVVM + Compose UI, delivering a complete mobile AI interaction experience
+- **proot Linux Environment** — Integrated proot via JNI on Android; built fake /proc filesystem to bypass SELinux restrictions; full Linux sandbox without root
+- **Custom Alpine rootfs** — Pre-installed Python 3.14, LibreOffice 25.8, and CJK fonts; configured Tsinghua PyPI mirror; automated 7-step initialization
+- **Office Document Pipeline** — LibreOffice headless → PDF conversion → Android PdfRenderer; solved proot fork() unavailability by using `exec soffice.bin` directly
+- **Conversation Persistence** — JSON-based multi-conversation management with per-conversation workspace isolation, history switching and recovery
+- **File Viewer Matrix** — Text (syntax highlighting), images (Coil), PDF (PdfRenderer with pagination), Office (LibreOffice conversion), video (VideoView)
+- **UI/UX Design** — Collapsible thinking blocks and tool calls, streaming message rendering, auto-scroll, Material 3 theming
+
+### Disclaimer
+
+- This project is a personal learning experiment. **No warranty of stability or reliability is provided.** Use at your own risk.
+- This application uses the DeepSeek API. You must obtain your own API key; API fees and quotas are subject to DeepSeek's official policies.
+- This application executes AI-generated shell commands locally on your device. While safeguards are in place, risks cannot be fully eliminated. Review commands carefully before execution.
+- This project is not affiliated with or endorsed by DeepSeek or Anthropic.
+- All trademarks and brand names are the property of their respective owners.
 
 ---
 
