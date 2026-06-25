@@ -78,7 +78,7 @@ Android App
 | 项目 | 用途 | 许可证 |
 |------|------|--------|
 | [Claude Code](https://github.com/anthropics/claude-code) | AI 编码助手架构参考、Skill 技能系统、工具调用模式 | MIT |
-| [Codex CLI](https://github.com/anthropics/claude-code) | 开源 AI 编码代理，技能管理与工作区隔离设计 | MIT |
+| [Codex CLI](https://github.com/openai/codex) | 开源 AI 编码代理，技能管理与工作区隔离设计 | Apache-2.0 |
 | [proot](https://github.com/proot-me/proot) | Linux 用户态沙箱（ptrace 虚拟化） | GPL-2.0 |
 | [Alpine Linux](https://alpinelinux.org/) | minirootfs 根文件系统 | MIT |
 | [LibreOffice](https://www.libreoffice.org/) | Office 文档转换引擎 | MPL-2.0 |
@@ -166,7 +166,7 @@ This project builds upon the following open-source projects:
 | Project | Usage | License |
 |---------|-------|---------|
 | [Claude Code](https://github.com/anthropics/claude-code) | AI coding agent architecture, skill system, tool-calling patterns | MIT |
-| [Codex CLI](https://github.com/anthropics/claude-code) | Open-source AI coding agent, skill management & workspace isolation design | MIT |
+| [Codex CLI](https://github.com/openai/codex) | Open-source AI coding agent, skill management & workspace isolation design | Apache-2.0 |
 | [proot](https://github.com/proot-me/proot) | Userspace Linux sandbox (ptrace virtualization) | GPL-2.0 |
 | [Alpine Linux](https://alpinelinux.org/) | minirootfs base filesystem | MIT |
 | [LibreOffice](https://www.libreoffice.org/) | Office document conversion engine | MPL-2.0 |
