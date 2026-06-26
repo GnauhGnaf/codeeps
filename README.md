@@ -54,6 +54,28 @@ Android App
 
 首次启动时自动完成 7 步初始化：解压根文件系统 → 创建符号链接 → 配置 DNS → 测试 proot → 配置 pip（清华镜像）→ 安装中文字体 → 验证 Python。
 
+### 系统要求
+
+| 要求 | 说明 |
+|------|------|
+| Android 版本 | **7.0 (API 24)** 及以上 |
+| CPU 架构 | **arm64-v8a** |
+| 存储空间 | 建议 **2GB+** 可用空间（rootfs 解压 + 软件包安装） |
+| 网络 | 需要互联网连接（API 调用 + 首次初始化安装依赖） |
+| Root | **不需要** |
+
+> 已在真机 Oppo A83t (Android 7.1.1, arm64-v8a) 上验证通过。
+
+### 直接下载
+
+从 [oppoa1test](https://github.com/GnauhGnaf/codeeps/tree/oppoa1test) 分支下载最新 Debug APK：
+
+```
+https://github.com/GnauhGnaf/codeeps/raw/oppoa1test/app-debug.apk
+```
+
+或访问 [Releases](../../releases) 页面获取已发布版本。
+
 ### 构建
 
 ```bash
@@ -141,6 +163,28 @@ Android App
 ```
 
 On first launch, a 7-step initialization runs: extract rootfs → create symlinks → configure DNS → smoke-test proot → configure pip (Tsinghua mirror) → install CJK fonts → verify Python.
+
+### System Requirements
+
+| Requirement | Details |
+|-------------|---------|
+| Android Version | **7.0 (API 24)** or higher |
+| CPU Architecture | **arm64-v8a** |
+| Storage | **2GB+** free space recommended (rootfs extraction + package installs) |
+| Network | Internet required (API calls + first-time dependency installation) |
+| Root | **Not required** |
+
+> Verified on Oppo A83t (Android 7.1.1, arm64-v8a).
+
+### Direct Download
+
+Download the latest Debug APK from the [oppoa1test](https://github.com/GnauhGnaf/codeeps/tree/oppoa1test) branch:
+
+```
+https://github.com/GnauhGnaf/codeeps/raw/oppoa1test/app-debug.apk
+```
+
+Or visit the [Releases](../../releases) page for published versions.
 
 ### Build
 
